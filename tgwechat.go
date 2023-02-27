@@ -34,11 +34,5 @@ func handleMessage(session *wxweb.Session, msgRecv *wxweb.ReceivedMessage) {
 		return
 	}
 	logrus.Info("who=", who)
-
-	if session.Bot.UserName != who.UserName {
-		// message from others to me
-		handler.HandleWechatMessage(session, msgRecv)
-	} else {
-		logrus.Info("message sent to", who.DisplayName)
-	}
+	go handler.HandleWechatMessage(session, msgRecv)
 }
